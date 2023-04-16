@@ -37,7 +37,7 @@ from nltk.corpus import movie_reviews
 import nltk
 # from nltk.corpus import PlaintextCorpusReader
 import openai
-openai.api_key = "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"
+openai.api_key = "<Put your openai api key here"
 
 nltk.download('brown')
 nltk.download('reuters')
