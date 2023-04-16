@@ -378,22 +378,26 @@ function displayAutocompleteResults(words, prompts, context, key_pressed) {
       .removeEventListener("keydown", handlePrompts);
 
     var currentMessage =
-      document.getElementsByClassName('_3Uu1_')[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0]
+      document.getElementsByClassName('_3Uu1_')[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].data
+
+    // if (typeof document.getElementsByClassName('_3Uu1_')[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].data === 'string') {
+    //   document.getElementsByClassName('_3Uu1_')[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].data = ""
+    // }
       console.log("2Mouse Clicked. Current Message:")
       console.log(currentMessage)
-      // console.log(currentMessage.length)
+      console.log(typeof currentMessage)
+      console.log(currentMessage.trim() + " " + $(this).text())
+
 
     // currentMessage = currentMessage.trim() + " " + $(this).text();
-    if (typeof currentMessage === 'string') {
-    currentMessage = currentMessage.trim() + " " + $(this).text();
-  } else {
+  //   if (typeof currentMessage === 'string') {
+  //   currentMessage = currentMessage.trim() + " " + $(this).text();
+  // } else {
     currentMessage = $(this).text();
-  }
+  // }
   console.log(currentMessage)
 
-  if (typeof document.getElementsByClassName('_3Uu1_')[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0] === 'string') {
-    document.getElementsByClassName('_3Uu1_')[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].data = ""
-  }
+  
     document.execCommand("insertText", false, currentMessage);
     $('div[data-tab="10"]').focus();
     $('div[data-tab="10"]').siblings().hide();
@@ -406,27 +410,44 @@ function displayAutocompleteResults(words, prompts, context, key_pressed) {
     .getElementsByClassName('_3E8Fg')[0]
       .removeEventListener("keydown", handlePrompts);
 
-    var currentMessage = document.getElementsByClassName('_3Uu1_')[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].data
+    var currentMessage = document.getElementsByClassName('_3Uu1_')[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0]
       console.log("13Mouse Clicked. Current Message:")
       console.log(currentMessage)
       console.log(typeof currentMessage)
 
     // $('div[data-tab="10"]').text("");
-    if (typeof currentMessage === 'string') {
+    if (typeof currentMessage.data === 'string') {
+      currentMessage = currentMessage.data
       const lastindex = currentMessage.lastIndexOf(" ");
       if (lastindex == -1) {
         currentMessage = $(this).text();
         console.log("W complete: " + currentMessage)
       } else {
-        currentMessage = currentMessage.slice(0, lastindex);
+        // currentMessage = currentMessage.slice(0, lastindex);
         console.log("Word Complete : " + currentMessage);
-        console.log($(this).text())
-        currentMessage = currentMessage + " " + $(this).text();
+        // console.log($(this).text())
+        // // currentMessage = currentMessage + " " + $(this).text();
+        // currentMessage = $(this).text();
+
+        const lastindex = currentMessage.lastIndexOf(" ");
+        currentMessage = currentMessage.slice(lastindex + 1);
+        console.log(currentMessage)
+        if ($(this).text().startsWith(currentMessage)) {
+          console.log("IN")
+          console.log($(this).text())
+          currentMessage = $(this).text().substring(currentMessage.length);
+        }
+        else{
+        document.getElementsByClassName('_3Uu1_')[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].data = document.getElementsByClassName('_3Uu1_')[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].data.slice(0, lastindex);
+        currentMessage = $(this).text()
+        }
       }
+  
+        // currentMessage = remainingString;
+        console.log("comp: " + currentMessage)
     } else {
       // handle the case where currentMessage is not a string
       // e.g. throw an error or set a default value
-      currentMessage = $(this).text();
       console.log("else w comp: ", currentMessage)
     }
     
